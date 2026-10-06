@@ -1,0 +1,25 @@
+name: checks
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check out titan
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Check out the link checker from titan-shared
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: titan-home/titan-shared
+          # master on master; a branch may point elsewhere while it waits for titan-shared
+          ref: master
+          path: .titan-shared
+      - name: Check relative links
+        run: python3 .titan-shared/scripts/check_links.py .

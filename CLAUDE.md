@@ -38,9 +38,11 @@ files are in `../titan-shared/`.
 
 Run this checklist before every commit
 ([development rules, "Before committing"](https://github.com/titan-home/titan-shared/blob/master/docs/development/rules.md#before-committing)).
-The checks are settled with the first release.
+Checks 1 and 2 are settled with the first release.
 
 1. Every manifest validates against its schema.
 2. Every image digest in a changed manifest exists in its registry and was
    built from the listed source commit.
-3. Every relative link in the changed files points to a file that exists.
+3. Every relative link points to a file and heading that exist:
+   `python3 ../titan-shared/scripts/check_links.py .` prints nothing in the
+   workspace. CI runs the same script from `titan-shared`'s `master`.
